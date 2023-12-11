@@ -1,231 +1,254 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="img/nickname.jpg" type="image/x-icon">
-    <title>Love</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-        }
-
-        html,
-        body {
-            height: 100%;
-            background-color: #000;
-        }
-
-        .name {
-            text-align: center;
-            height: 20px;
-            line-height: 20px;
-            width: 60px;
-            position: absolute;
-            color: #E980B0;
-            top: 0px;
-            left: 0px;
-            bottom: 0;
-            right: 0;
-            margin: auto;
-        }
-    </style>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Title</title>
+    <link href="css/17sucai.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
-    <div class="name">Elva</div>    
-    <canvas id="heart"></canvas>
-    <script>
-        function rand(n, m, flag = true) {
-            var c = m - n;
-            if (flag) {
-                return Math.floor(Math.random() * c + n);
-            } else {
-                return Math.random() * c + n;
-            }
-        }
-        function generatorHeart(t, scale = 12) {
-            let x = 16 * Math.sin(t) ** 3;
-            let y = -(
-                13 * Math.cos(t) -
-                5 * Math.cos(2 * t) -
-                2 * Math.cos(3 * t) -
-                Math.cos(4 * t)
-            );
-            x = x * scale + width / 2;
-            y = y * scale + height / 2;
-            return new Point(x, y, 0);
-        }
-        function curve(x) {
-            return (2 * (2 * Math.sin(4 * x))) / (2 * Math.PI);
-        }
-        function scatterHeart(point, beta = 0.15) {
-            let ratio_x = -beta * Math.log(Math.random());
-            let ratio_y = -beta * Math.log(Math.random());
 
-            let dx = ratio_x * (point.x - width / 2);
-            let dy = ratio_y * (point.y - height / 2);
+    <div class="background">
+        <!--ground-->
+        <svg class="background__ground" xmlns="http://www.w3.org/2000/svg" version="1.1" id="Layer_2" x="0" y="0"
+            viewBox="0 0 1314 227.7" xml:space="preserve">
+            <g id="ground">
+                <path class="st0"
+                    d="M0 21.6c141-41.8 293.2-11.1 441.1-5.1 107.2 4.4 214.4-4.5 321.6-9.3C814.4 4.8 866.3 3.4 918 8c46.2 4.1 92 13.1 138.3 13.2 86.5 0.1 175.7-30.4 257.7-2.5v209H0V21.6z" />
+            </g>
 
-            return new Point(point.x - dx, point.y - dy);
-        }
-        function shrinkHeart(point, ratio) {
-            let force =
-                -1 /
-                ((point.x - width / 2) ** 2 + (point.y - height / 2) ** 2) ** 0.6;
-            let dx = ratio * force * (point.x - width / 2);
-            let dy = ratio * force * (point.y - height / 2);
-            return new Point(point.x - dx, point.y - dy, 0);
-        }
-        class Point {
-            constructor(x, y, size) {
-                this.x = x;
-                this.y = y;
-                this.size = size;
-            }
-        }
-        class Heart {
-            constructor(particles, generateFrame) {
-                this.particles = particles;
-                this.generateFrame = generateFrame;
-                this.boardHeart = []; // 爱心的轮廓
-                this.middleHeart = []; // 爱心轮廓内部
-                this.centerHeart = []; // 爱心中间
-                this.allHearts = []; // 所有的爱心粒子
-                this.initHeart(); // 初始化爱心内部粒子
+        </svg>
+        <!--snowman-->
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" id="snowman" x="0" y="0" viewBox="0 -20 300 250"
+            xml:space="preserve" enable-background="new 0 0 178 219.4">
+            <ellipse id="shadow" transform="matrix(0.9976 -6.986409e-02 6.986409e-02 0.9976 -14.0967 6.4916)"
+                class="st0" cx="85.8" cy="204.8" rx="68.9" ry="13.8" />
+            <g class="background__snowman">
 
-                for (let i = 0; i < generateFrame; i++) {
-                    this.calcFrame(i); // 计算 20 帧图像
-                }
-            }
-            initHeart() {
-                for (let i = 0; i < this.particles; i++) {
-                    const deg = (2 * Math.PI * rand(0, 360)) / 360;
-                    this.boardHeart.push(generatorHeart(deg));
-                }
-                this.boardHeart.forEach((point) => {
-                    for (let j = 0; j < 3; j++) {
-                        this.middleHeart.push(
-                            scatterHeart(point, 0.05 * rand(j, j + 1, false))
-                        );
-                    }
-                });
-                for (let i = 0; i < this.particles * 2; i++) {
-                    const ii = rand(0, this.boardHeart.length - 1);
-                    this.centerHeart.push(scatterHeart(this.boardHeart[ii], 0.17));
-                }
+                <g id="arm-r">
+                    <polyline class="st1" points="130 91.5 155.5 66.5 173.1 63.5 176.5 52.4 " />
+                    <line class="st1" x1="155" y1="67" x2="155" y2="52" />
+                    <line class="st1" x1="165.4" y1="64.8" x2="176.5" y2="77" />
+                </g>
+                <ellipse id="body" transform="matrix(0.9955 -9.424890e-02 9.424890e-02 0.9955 -12.4309 9.7989)"
+                    class="st2" cx="97.5" cy="136.5" rx="65" ry="71.5" />
+                <circle id="head" class="st2" cx="86.5" cy="41" r="41" />
+                <g id="eyes">
+                    <ellipse transform="matrix(0.9437 -0.3309 0.3309 0.9437 -8.0174 28.9066)" class="st3" cx="80.9"
+                        cy="38" rx="4.9" ry="6.5" />
+                    <ellipse transform="matrix(0.9437 -0.3309 0.3309 0.9437 -4.1167 39.8191)" class="st3" cx="114.9"
+                        cy="32" rx="4.9" ry="6.5" />
+                </g>
+                <ellipse id="nose" transform="matrix(0.9598 -0.2807 0.2807 0.9598 -8.8038 31.2377)" class="st4"
+                    cx="104.7" cy="46.4" rx="7.1" ry="5.4" />
+                <ellipse id="mouth" class="st5" cx="101.1" cy="63.8" rx="3.6" ry="3.2" />
+                <g id="arm-l">
+                    <polyline class="st6" points="61 103.5 22 85.5 16.5 65.1 7.5 60.5 " />
+                    <line class="st6" x1="19.7" y1="76.8" x2="0.5" y2="82" />
+                    <line class="st6" x1="32.1" y1="90.2" x2="19.7" y2="96" />
+                </g>
+                <g id="buttons">
+                    <ellipse transform="matrix(0.9821 0.1884 -0.1884 0.9821 20.1032 -18.9613)" class="st7" cx="109.8"
+                        cy="96.2" rx="5.1" ry="4.8" />
+                    <ellipse transform="matrix(0.9378 -0.3472 0.3472 0.9378 -34.9546 47.3867)" class="st7" cx="114.8"
+                        cy="121.2" rx="5.1" ry="4.8" />
+                </g>
+            </g>
+        </svg>
+        <!--snowman-->
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" id="snowman2" x="0" y="0" viewBox="0 -20 300 250"
+            xml:space="preserve" enable-background="new 0 0 178 219.4">
+            <ellipse id="shadow" transform="matrix(0.9976 -6.986409e-02 6.986409e-02 0.9976 -14.0967 6.4916)"
+                class="st0" cx="85.8" cy="204.8" rx="68.9" ry="13.8" />
+            <g class="background__snowman">
 
-                for (let i = 0; i < this.particles / 4; i++) {
-                    const ii = rand(0, this.boardHeart.length - 1);
-                    this.centerHeart.push(scatterHeart(this.boardHeart[ii], 0.35));
-                }
-            }
-            calc_position(point, ratio) {
-                const force =
-                    1 /
-                    ((point.x - width / 2) ** 2 + (point.y - height / 2) ** 2) ** 0.52;
+                <g id="arm-r">
+                    <polyline class="st1" points="130 91.5 155.5 66.5 173.1 63.5 176.5 52.4 " />
+                    <line class="st1" x1="155" y1="67" x2="155" y2="52" />
+                    <line class="st1" x1="165.4" y1="64.8" x2="176.5" y2="77" />
+                </g>
+                <ellipse id="body" transform="matrix(0.9955 -9.424890e-02 9.424890e-02 0.9955 -12.4309 9.7989)"
+                    class="st2" cx="97.5" cy="136.5" rx="65" ry="71.5" />
+                <circle id="head" class="st2" cx="86.5" cy="41" r="41" />
+                <g id="eyes">
+                    <ellipse transform="matrix(0.9437 -0.3309 0.3309 0.9437 -8.0174 28.9066)" class="st3" cx="80.9"
+                        cy="38" rx="4.9" ry="6.5" />
+                    <ellipse transform="matrix(0.9437 -0.3309 0.3309 0.9437 -4.1167 39.8191)" class="st3" cx="114.9"
+                        cy="32" rx="4.9" ry="6.5" />
+                </g>
+                <ellipse id="nose" transform="matrix(0.9598 -0.2807 0.2807 0.9598 -8.8038 31.2377)" class="st4"
+                    cx="104.7" cy="46.4" rx="7.1" ry="5.4" />
+                <ellipse id="mouth" class="st5" cx="101.1" cy="63.8" rx="3.6" ry="3.2" />
+                <g id="arm-l">
+                    <polyline class="st6" points="61 103.5 22 85.5 16.5 65.1 7.5 60.5 " />
+                    <line class="st6" x1="19.7" y1="76.8" x2="0.5" y2="82" />
+                    <line class="st6" x1="32.1" y1="90.2" x2="19.7" y2="96" />
+                </g>
+                <g id="buttons">
+                    <ellipse transform="matrix(0.9821 0.1884 -0.1884 0.9821 20.1032 -18.9613)" class="st7" cx="109.8"
+                        cy="96.2" rx="5.1" ry="4.8" />
+                    <ellipse transform="matrix(0.9378 -0.3472 0.3472 0.9378 -34.9546 47.3867)" class="st7" cx="114.8"
+                        cy="121.2" rx="5.1" ry="4.8" />
+                </g>
+            </g>
+        </svg>
+        <!--snowman-->
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" id="snowman3" x="0" y="0" viewBox="0 -20 300 250"
+            xml:space="preserve" enable-background="new 0 0 178 219.4">
+            <ellipse id="shadow" transform="matrix(0.9976 -6.986409e-02 6.986409e-02 0.9976 -14.0967 6.4916)"
+                class="st0" cx="85.8" cy="204.8" rx="68.9" ry="13.8" />
+            <g class="background__snowman">
 
-                const dx = ratio * force * (point.x - width / 2) + rand(-1, 1, false);
-                const dy =
-                    ratio * force * (point.y - height / 2) + rand(-1, 1, false);
+                <g id="arm-r">
+                    <polyline class="st1" points="130 91.5 155.5 66.5 173.1 63.5 176.5 52.4 " />
+                    <line class="st1" x1="155" y1="67" x2="155" y2="52" />
+                    <line class="st1" x1="165.4" y1="64.8" x2="176.5" y2="77" />
+                </g>
+                <ellipse id="body" transform="matrix(0.9955 -9.424890e-02 9.424890e-02 0.9955 -12.4309 9.7989)"
+                    class="st2" cx="97.5" cy="136.5" rx="65" ry="71.5" />
+                <circle id="head" class="st2" cx="86.5" cy="41" r="41" />
+                <g id="eyes">
+                    <ellipse transform="matrix(0.9437 -0.3309 0.3309 0.9437 -8.0174 28.9066)" class="st3" cx="80.9"
+                        cy="38" rx="4.9" ry="6.5" />
+                    <ellipse transform="matrix(0.9437 -0.3309 0.3309 0.9437 -4.1167 39.8191)" class="st3" cx="114.9"
+                        cy="32" rx="4.9" ry="6.5" />
+                </g>
+                <ellipse id="nose" transform="matrix(0.9598 -0.2807 0.2807 0.9598 -8.8038 31.2377)" class="st4"
+                    cx="104.7" cy="46.4" rx="7.1" ry="5.4" />
+                <ellipse id="mouth" class="st5" cx="101.1" cy="63.8" rx="3.6" ry="3.2" />
+                <g id="arm-l">
+                    <polyline class="st6" points="61 103.5 22 85.5 16.5 65.1 7.5 60.5 " />
+                    <line class="st6" x1="19.7" y1="76.8" x2="0.5" y2="82" />
+                    <line class="st6" x1="32.1" y1="90.2" x2="19.7" y2="96" />
+                </g>
+                <g id="buttons">
+                    <ellipse transform="matrix(0.9821 0.1884 -0.1884 0.9821 20.1032 -18.9613)" class="st7" cx="109.8"
+                        cy="96.2" rx="5.1" ry="4.8" />
+                    <ellipse transform="matrix(0.9378 -0.3472 0.3472 0.9378 -34.9546 47.3867)" class="st7" cx="114.8"
+                        cy="121.2" rx="5.1" ry="4.8" />
+                </g>
+            </g>
+        </svg>
+        <!--snowman-->
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" id="snowman4" x="0" y="0" viewBox="0 -20 300 250"
+            xml:space="preserve" enable-background="new 0 0 178 219.4">
+            <ellipse id="shadow" transform="matrix(0.9976 -6.986409e-02 6.986409e-02 0.9976 -14.0967 6.4916)"
+                class="st0" cx="85.8" cy="204.8" rx="68.9" ry="13.8" />
+            <g class="background__snowman">
 
-                return new Point(point.x - dx, point.y - dy, 0);
-            }
+                <g id="arm-r">
+                    <polyline class="st1" points="130 91.5 155.5 66.5 173.1 63.5 176.5 52.4 " />
+                    <line class="st1" x1="155" y1="67" x2="155" y2="52" />
+                    <line class="st1" x1="165.4" y1="64.8" x2="176.5" y2="77" />
+                </g>
+                <ellipse id="body" transform="matrix(0.9955 -9.424890e-02 9.424890e-02 0.9955 -12.4309 9.7989)"
+                    class="st2" cx="97.5" cy="136.5" rx="65" ry="71.5" />
+                <circle id="head" class="st2" cx="86.5" cy="41" r="41" />
+                <g id="eyes">
+                    <ellipse transform="matrix(0.9437 -0.3309 0.3309 0.9437 -8.0174 28.9066)" class="st3" cx="80.9"
+                        cy="38" rx="4.9" ry="6.5" />
+                    <ellipse transform="matrix(0.9437 -0.3309 0.3309 0.9437 -4.1167 39.8191)" class="st3" cx="114.9"
+                        cy="32" rx="4.9" ry="6.5" />
+                </g>
+                <ellipse id="nose" transform="matrix(0.9598 -0.2807 0.2807 0.9598 -8.8038 31.2377)" class="st4"
+                    cx="104.7" cy="46.4" rx="7.1" ry="5.4" />
+                <ellipse id="mouth" class="st5" cx="101.1" cy="63.8" rx="3.6" ry="3.2" />
+                <g id="arm-l">
+                    <polyline class="st6" points="61 103.5 22 85.5 16.5 65.1 7.5 60.5 " />
+                    <line class="st6" x1="19.7" y1="76.8" x2="0.5" y2="82" />
+                    <line class="st6" x1="32.1" y1="90.2" x2="19.7" y2="96" />
+                </g>
+                <g id="buttons">
+                    <ellipse transform="matrix(0.9821 0.1884 -0.1884 0.9821 20.1032 -18.9613)" class="st7" cx="109.8"
+                        cy="96.2" rx="5.1" ry="4.8" />
+                    <ellipse transform="matrix(0.9378 -0.3472 0.3472 0.9378 -34.9546 47.3867)" class="st7" cx="114.8"
+                        cy="121.2" rx="5.1" ry="4.8" />
+                </g>
+            </g>
+        </svg>
+        <!--snowman-->
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" id="snowman5" x="0" y="0" viewBox="0 -20 300 250"
+            xml:space="preserve" enable-background="new 0 0 178 219.4">
+            <ellipse id="shadow" transform="matrix(0.9976 -6.986409e-02 6.986409e-02 0.9976 -14.0967 6.4916)"
+                class="st0" cx="85.8" cy="204.8" rx="68.9" ry="13.8" />
+            <g class="background__snowman">
 
-            calcFrame(frame) {
-                const ratio = 20 * curve((frame / 18) * Math.PI);
-                const haloRadius = Math.floor(
-                    4 + 6 * (1 + curve((frame / 18) * Math.PI))
-                );
-                const haloNums = Math.floor(
-                    this.particles * 2 +
-                    this.particles * 3 * Math.abs(curve((frame / 18) * Math.PI) ** 2)
-                );
+                <g id="arm-r">
+                    <polyline class="st1" points="130 91.5 155.5 66.5 173.1 63.5 176.5 52.4 " />
+                    <line class="st1" x1="155" y1="67" x2="155" y2="52" />
+                    <line class="st1" x1="165.4" y1="64.8" x2="176.5" y2="77" />
+                </g>
+                <ellipse id="body" transform="matrix(0.9955 -9.424890e-02 9.424890e-02 0.9955 -12.4309 9.7989)"
+                    class="st2" cx="97.5" cy="136.5" rx="65" ry="71.5" />
+                <circle id="head" class="st2" cx="86.5" cy="41" r="41" />
+                <g id="eyes">
+                    <ellipse transform="matrix(0.9437 -0.3309 0.3309 0.9437 -8.0174 28.9066)" class="st3" cx="80.9"
+                        cy="38" rx="4.9" ry="6.5" />
+                    <ellipse transform="matrix(0.9437 -0.3309 0.3309 0.9437 -4.1167 39.8191)" class="st3" cx="114.9"
+                        cy="32" rx="4.9" ry="6.5" />
+                </g>
+                <ellipse id="nose" transform="matrix(0.9598 -0.2807 0.2807 0.9598 -8.8038 31.2377)" class="st4"
+                    cx="104.7" cy="46.4" rx="7.1" ry="5.4" />
+                <ellipse id="mouth" class="st5" cx="101.1" cy="63.8" rx="3.6" ry="3.2" />
+                <g id="arm-l">
+                    <polyline class="st6" points="61 103.5 22 85.5 16.5 65.1 7.5 60.5 " />
+                    <line class="st6" x1="19.7" y1="76.8" x2="0.5" y2="82" />
+                    <line class="st6" x1="32.1" y1="90.2" x2="19.7" y2="96" />
+                </g>
+                <g id="buttons">
+                    <ellipse transform="matrix(0.9821 0.1884 -0.1884 0.9821 20.1032 -18.9613)" class="st7" cx="109.8"
+                        cy="96.2" rx="5.1" ry="4.8" />
+                    <ellipse transform="matrix(0.9378 -0.3472 0.3472 0.9378 -34.9546 47.3867)" class="st7" cx="114.8"
+                        cy="121.2" rx="5.1" ry="4.8" />
+                </g>
+            </g>
+        </svg>
+        <!--snowflakes-->
+        <div class="container--snowflakes">
+            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" id="snowflakes" x="0" y="0" viewBox="0 0 1243 500"
+                xml:space="preserve" enable-background="new 0 0 1243 258">
 
-                const nowFramePoints = [];
-                const haloSet = new Set();
-                for (let i = 0; i < haloNums; i++) {
-                    const delta = rand(0, 360);
-                    let point = generatorHeart(2 * Math.PI * (delta / 360));
-                    let shrinkPoint = shrinkHeart(point, haloRadius);
-                    if (
-                        !haloSet.has(
-                            JSON.stringify([
-                                Math.floor(shrinkPoint.x),
-                                Math.floor(shrinkPoint.y),
-                            ])
-                        )
-                    ) {
-                        shrinkPoint.x += rand(-20, 20);
-                        shrinkPoint.y += rand(-20, 20);
-                        shrinkPoint.size = rand(0.4, 1.4, false);
-                        nowFramePoints.push(shrinkPoint);
-                        haloSet.add(
-                            JSON.stringify([
-                                Math.floor(shrinkPoint.x),
-                                Math.floor(shrinkPoint.y),
-                            ])
-                        );
-                    }
-                }
+                <g id="snowflakes-1">
+                    <circle class="st0" cx="592" cy="48" r="7" />
+                    <circle class="st0" cx="833" cy="148" r="7" />
+                    <circle class="st0" cx="371" cy="105" r="7" />
+                    <circle class="st0" cx="115" cy="28" r="7" />
+                    <circle class="st0" cx="1106" cy="208" r="7" />
+                    <circle class="st0" cx="1032" cy="35" r="7" />
+                </g>
+                <g id="snowflakes-2">
+                    <circle class="st0" cx="566" cy="162" r="7" />
+                    <circle class="st0" cx="764" cy="21" r="7" />
+                    <circle class="st0" cx="958" cy="184" r="7" />
+                    <circle class="st0" cx="411" cy="201" r="7" />
+                    <circle class="st0" cx="297" cy="7" r="7" />
+                    <circle class="st0" cx="136" cy="141" r="7" />
+                </g>
+                <g id="snowflakes-3">
+                    <circle class="st0" cx="726.5" cy="225.5" r="4.5" />
+                    <circle class="st0" cx="688.5" cy="123.5" r="4.5" />
+                    <circle class="st0" cx="252.5" cy="168.5" r="4.5" />
+                    <circle class="st0" cx="480.5" cy="83.5" r="4.5" />
+                    <circle class="st0" cx="1180.5" cy="83.5" r="4.5" />
+                    <circle class="st0" cx="907.5" cy="40.5" r="4.5" />
+                    <circle class="st0" cx="1025.5" cy="253.5" r="4.5" />
+                </g>
+                <g id="snowflakes-4">
+                    <circle class="st0" cx="4.5" cy="214.5" r="4.5" />
+                    <circle class="st0" cx="52.5" cy="87.5" r="4.5" />
+                    <circle class="st0" cx="256.5" cy="78.5" r="4.5" />
+                    <circle class="st0" cx="598.5" cy="237.5" r="4.5" />
+                    <circle class="st0" cx="1021.5" cy="123.5" r="4.5" />
+                    <circle class="st0" cx="1238.5" cy="176.5" r="4.5" />
+                </g>
+            </svg>
+        </div>
 
-                this.boardHeart.forEach((point) => {
-                    const calcPoint = this.calc_position(point, ratio);
-                    calcPoint.size = rand(0.6, 1.6, false);
-                    nowFramePoints.push(calcPoint);
-                });
-                this.middleHeart.forEach((point) => {
-                    const calcPoint = this.calc_position(point, ratio);
-                    calcPoint.size = rand(0.4, 1.4, false);
-                    nowFramePoints.push(calcPoint);
-                });
-                this.centerHeart.forEach((point) => {
-                    const calcPoint = this.calc_position(point, ratio);
-                    calcPoint.size = rand(0.4, 1.4, false);
-                    nowFramePoints.push(calcPoint);
-                });
+    </div>
 
-                this.allHearts[frame] = nowFramePoints;
-            }
-        }
 
-        function drawHeart(context, points) {
-            points.forEach((point) => {
-                context.beginPath();
-                // #ed1c24
-                // #003EDB
-                // "#00A2E9"
-                context.fillStyle = "#E980B0";
-                context.arc(point.x, point.y, point.size, 0, Math.PI * 2);
-                context.fill();
-                context.closePath();
-            });
-        }
-
-        const width = window.innerWidth;
-        const height = window.innerHeight;
-        const heartCanvas = document.getElementById("heart");
-        const heartCtx = heartCanvas.getContext("2d");
-        heartCanvas.width = width;
-        heartCanvas.height = height;
-        function render(k) {
-            heartCtx.clearRect(0, 0, width, height);
-            drawHeart(heartCtx, heartCls.allHearts[k]);
-        }
-        const heartCls = new Heart(2000, 20);
-
-        let k = 0;
-        (function animateloop() {
-            k++;
-            k = k % 80;
-            if (k % 4 === 0) {
-                render(k / 4);
-            }
-            requestAnimationFrame(animateloop);
-        })();
-    </script>
 </body>
 
 </html>
